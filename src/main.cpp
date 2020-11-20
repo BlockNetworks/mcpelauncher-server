@@ -29,6 +29,8 @@
 #include "console_reader.h"
 #include "v8_platform.h"
 
+static size_t base;
+
 int main(int argc, char *argv[]) {
     CrashHandler::registerCrashHandler();
     MinecraftUtils::workaroundLocaleBug();
@@ -56,6 +58,7 @@ int main(int argc, char *argv[]) {
     Log::info("Launcher", "Loaded Minecraft library");
 
     Log::debug("Launcher", "Minecraft is at offset 0x%x", MinecraftUtils::getLibraryBase(handle));
+    base = MinecraftUtils::getLibraryBase(handle);
     MinecraftUtils::initSymbolBindings(handle);
     Log::info("Launcher", "Game version: %s", Common::getGameVersionStringNet().c_str());
 
